@@ -1,6 +1,11 @@
 async function fetchOrdersAdmin() {
+    var paymentStatus = document.getElementById("paymentStatus").value;
+    var endpoint = "";
+    if(paymentStatus != ""){
+        endpoint = "?paymentStatus=" + paymentStatus;
+    }
     try {
-        const response = await fetch('http://localhost:8080/orders', {
+        const response = await fetch('http://localhost:8080/orders' + endpoint, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -26,12 +31,15 @@ function displayOrders(orders) {
     ordersTable.innerHTML = '';
     console.log(orders);
     orders.forEach(order => {
+        var productsQuantity = 0;
         var htmlOrder = document.createElement("tr");
         htmlOrder.className = "bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600";
         htmlOrder.innerHTML = showOrders(order);
         ordersTable.append(htmlOrder);
         console.log(order.products);
         order.products.forEach(async orderP => {
+            productsQuantity = productsQuantity + orderP.quantity;
+            document.getElementById("quantity" + order.id).innerText = productsQuantity;
             var htmlOrderProducts = document.createElement("tr");
             ordersTable.append(htmlOrderProducts);
             console.log(orderP.productId)
@@ -49,7 +57,7 @@ function showOrders(order){
     return '<td class="px-6 py-4 font-semibold text-gray-900 dark:text-white">' +
                 order.id +
             '</td>' +
-                '<td class="px-6 py-4 font-semibold text-gray-900 dark:text-white">' +
+                '<td id="quantity'+ order.id +'" class="px-6 py-4 font-semibold text-gray-900 dark:text-white">' +
                     order.products.length +
                 '</td>' +
                 '<td class="px-6 py-4 font-semibold text-gray-900 dark:text-white">' +
@@ -69,11 +77,14 @@ function showOrders(order){
                 '</td>' +
                 
                 '<td class="px-6 py-4">' +
-                '<a onclick="openCloseOrderProducts('+ order.id +')" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Show products</a>' +
+                '<a onclick="openCloseOrderProducts('+ order.id +')" class="font-medium text-blue-600 dark:text-blue-500 hover:underline" id="show'+ order.id +'">Show products</a>' +
             '</td>'
 }
 document.addEventListener('DOMContentLoaded', function () {
     fetchOrdersAdmin();
+    document.getElementById("paymentStatus").onchange = function() {
+        fetchOrdersAdmin();
+    };
   });
 function productsNumber(productsInOrder){
 
@@ -126,11 +137,15 @@ async function fetchProductById(id) {
 }
 function openCloseOrderProducts(id){
     let pop = document.getElementsByName("orderProduct" + id);
+    var showButton = document.getElementById("show" + id)
     for(let i = 0; i < pop.length; i++){
         if(pop[i].classList.contains("hidden")){
             pop[i].classList.remove("hidden");
+            showButton.innerText = "Hide";
+
         }else{
             pop[i].classList.add("hidden");
+            showButton.innerText = "Show Products";
         }
     }
     

@@ -23,6 +23,9 @@ function addToCart(product){
     }
     setCookie("cartItems", JSON.stringify(cart));
     showPing();
+    displayCartProducts();
+    document.getElementById("modalText").textContent = "Item has been successfully added to cart!"
+    toggleModal();
 
 }
 

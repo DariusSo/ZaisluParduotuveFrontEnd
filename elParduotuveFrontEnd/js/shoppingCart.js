@@ -13,7 +13,9 @@ function displayCartProducts() {
         cartProduct.innerHTML = showCartProducts(fetchedProduct, item.quantity);
         cartTable.append(cartProduct);
         priceTotal = priceTotal + fetchedProduct.price * item.quantity;
-        totalCartPrice.textContent = priceTotal;
+        if(totalCartPrice){
+            totalCartPrice.textContent = priceTotal;
+        }
     });
     //console.log(priceTotal);
     
@@ -48,7 +50,7 @@ function showCartProducts(fetchedProduct, quantity){
                 fetchedProduct.price +
             '</td>' +
             '<td class="px-6 py-4">' +
-                '<a href="#" class="font-medium text-red-600 dark:text-red-500 hover:underline">Remove</a>' +
+                '<a href="#" class="font-medium text-red-600 dark:text-red-500 hover:underline" onclick="removeFullItemFromCart('+ fetchedProduct.id +')">Remove</a>' +
             '</td>'
 }
 document.addEventListener('DOMContentLoaded', function () {
@@ -65,6 +67,11 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     return null;
 }
+
+function setCookie(name, value) {
+    document.cookie = name + "=" + (value || "") + "; path=/";
+}
+
 async function fetchProductById(id) {
     try {
         const response = await fetch('http://localhost:8080/products/'+ id, {
@@ -87,4 +94,23 @@ async function fetchProductById(id) {
     } catch (error) {
       console.log(error);
     }
+}
+function cartButton(){
+    var mText = document.getElementById("modalText");
+    mText.textContent = "Your Shopping Cart";
+    toggleModal();
+}
+function removeFullItemFromCart(id){
+    var cookieItems = JSON.parse(getCookie("cartItems"));
+    cookieItems.forEach(item => {
+        console.log(id);
+        console.log(item.productId);
+        if(item.productId == id){
+            delete item.productId;
+            delete item.quantity;
+        }
+    });
+    var cart = JSON.stringify(cookieItems);
+    setCookie("cartItems", cart);
+    displayCartProducts();
 }

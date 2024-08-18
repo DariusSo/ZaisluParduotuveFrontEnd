@@ -1,25 +1,25 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const stripe = Stripe('pk_test_51PlEGq2KAAK191iLhDLnsyctiFe2E6diwrp3yfU4oUCRwN0tWcEeyy5qUBAUvUJlyVkZ3NXZkg3bO9C3OzHEKkTV00MR9MgtBL'); 
+    const stripe = Stripe('pk_test_51PlEdJBsNoGKJEE7jvx0qXTpbYBJUgZXBpFflSuL3mRuahlDtMCWVZWmRfwXSd5Nb9VWyVc4uVCB02NNrtAaGJPb00vDUFdR1K'); 
     
     document.getElementById("buyButton").addEventListener("click", async () => {
         var name = document.getElementById("scName").value;
         var email = document.getElementById("scEmail").value;
         var address = document.getElementById("scAddress").value;
         var totalPrice = parseInt(document.getElementById(""))
-        var products = JSON.stringify(getCookie("cartItems"));
+        var products = JSON.parse(getCookie("cartItems"));
 
         if(name == "" || email == "" || address == ""){
         alert("All fields must be completed.")
         window.location.reload();
         }
-        const response = await fetch('http://localhost:8080/api/stripe/create-checkout-session', {
+        const response = await fetch('http://localhost:8080/create-checkout-session', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
             products : products,
-            totalPrice: price,
+            totalPrice: 0,
             customerName : name,
             customerAddress: address,
             customerEmail: email,

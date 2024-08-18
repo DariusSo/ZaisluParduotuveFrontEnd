@@ -35,7 +35,7 @@ function displayProducts(products) {
     });
 }
 function showProducts(product){
-    return '<div class="min-h-screen bg-gray-100 flex flex-col justify-center">' +
+    return '<div class="bg-gray-100 flex flex-col justify-center">' +
     '<div class="relative m-3 flex flex-wrap mx-auto justify-center">' +
   
       '<div class="relative max-w-sm min-w-[340px] bg-white shadow-md rounded-3xl p-2 mx-1 my-3 cursor-pointer">' +

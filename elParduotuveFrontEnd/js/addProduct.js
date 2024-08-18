@@ -95,3 +95,12 @@ function readFile() {
     console.log(error);
   }
 }
+
+function showHide(id){
+  let button = document.getElementById(id);
+  if(button.classList.contains("hidden")){
+    button.classList.remove("hidden");
+  }else{
+    button.classList.add("hidden");
+  }
+}
