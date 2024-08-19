@@ -96,11 +96,48 @@ function readFile() {
   }
 }
 
-function showHide(id){
+function showHide(id, buttonId){
   let button = document.getElementById(id);
+  let realButton = document.getElementById(buttonId);
   if(button.classList.contains("hidden")){
+    toggleButtons();
     button.classList.remove("hidden");
+    realButton.classList.remove("bg-white");
+    realButton.classList.add("bg-gray-300");
   }else{
     button.classList.add("hidden");
+    realButton.classList.add("bg-white");
+    realButton.classList.remove("bg-gray-300");
   }
+  
+}
+function toggleButtons(){
+  var addP = document.getElementById("addProductTable");
+  var shPT = document.getElementById("showHideProductTable");
+  var shOT = document.getElementById("showHideOrdersTable");
+  var addPButton = document.getElementById("addPButton");
+  var shPTButton = document.getElementById("shPTButton");
+  var shOTButton = document.getElementById("shOTButton");
+  if(addP.classList.contains("hidden") && addPButton.classList.contains("bg-white")){
+
+  }else{
+      addP.classList.add("hidden");
+      addPButton.classList.remove("bg-gray-300");
+      addPButton.classList.add("bg-white");
+  }
+  if(shPT.classList.contains("hidden") && shPTButton.classList.contains("bg-white")){
+
+  }else{
+      shPT.classList.add("hidden");
+      shPTButton.classList.remove("bg-gray-300");
+      shPTButton.classList.add("bg-white");
+  }
+  if(shOT.classList.contains("hidden") && shOTButton.classList.contains("bg-white")){
+
+  }else{
+      shOT.classList.add("hidden");
+      shOTButton.classList.remove("bg-gray-300");
+      shOTButton.classList.add("bg-white");
+  }
+
 }

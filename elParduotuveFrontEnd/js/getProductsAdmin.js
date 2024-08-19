@@ -65,7 +65,7 @@ function showProducts(product){
                 product.price +
             '</td>' +
             '<td class="px-6 py-4">' +
-                '<a onclick="removeProduct('+ product.id +')" class="font-medium text-red-600 dark:text-red-500 hover:underline">Remove</a>' +
+                '<a onclick="showDeletePopUp('+ product.id +')" class="font-medium text-red-600 dark:text-red-500 hover:underline">Remove</a>' +
             '</td>' +
             '<td class="px-6 py-4">' +
             '<a onclick="openForm('+product.id+')" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Modify</a>' +
@@ -92,7 +92,7 @@ function showModify(product){
                 '<a onclick="closeForm('+product.id+')" class="font-medium text-red-600 dark:text-red-500 hover:underline">Cancel</a>' +
             '</td>' +
             '<td class="px-6 py-4">' +
-            '<a onclick="modifyProduct('+product.id+')" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Update</a>' +
+            '<a onclick="showUpdatePopUp('+product.id+')" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Update</a>' +
         '</td>'
 }
 document.addEventListener('DOMContentLoaded', function () {
@@ -113,7 +113,13 @@ function closeForm(id){
     var description = document.getElementById("description" + id).value;
     var price = document.getElementById("price" + id).value;
     var category = document.getElementById("category" + id).value;
-    var imageUrl = await getImageUrlModify(id);
+    var checkUrl = document.getElementById("img" + id).src;
+    if(isValidURL(checkUrl)){
+        var imageUrl = checkUrl;
+    }else{
+        var imageUrl = await getImageUrlModify(id);
+    }
+    
     try{
       (async () => {
         const rawResponse = await fetch('http://localhost:8080/products/update', {
@@ -135,7 +141,7 @@ function closeForm(id){
         });
         var response = await rawResponse.text();
         if(rawResponse.status == 200){
-            alert(response);
+            
         }
       })();
     }catch(err){
@@ -173,10 +179,10 @@ function closeForm(id){
   } catch (error) {
     console.log(error);
   }
+  fetchProductsAdmin();
 }
 
 function removeProduct(id){
-    if (confirm('Are you sure?')) {
         try{
         (async () => {
             const rawResponse = await fetch('http://localhost:8080/products/delete/' + id, {
@@ -189,15 +195,17 @@ function removeProduct(id){
             });
             var response = await rawResponse.text();
             if(rawResponse.status == 200){
-                alert(response);
+                
             }
         })();
         }catch(err){
             console.error(err);
-        } 
-    } else {
-        return false;
-    }
+        }
+        fetchProductsAdmin();
+}
+function isValidURL(url) {
+    const urlPattern = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/i;
+    return urlPattern.test(url);
 }
 
   

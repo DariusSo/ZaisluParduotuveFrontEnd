@@ -12,22 +12,23 @@
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-<body>
+<body class="bg-green-100">
+  <img src="./img/Auksciau.png" class="h-30">
     <div class="flex flex-wrap">
         <section class="relative mx-auto">
             <!-- navbar -->
-          <nav class="flex justify-between bg-yellow-900 text-white w-screen">
+          <nav class="flex justify-between bg-green-400 text-white w-screen">
             <div class="px-5 xl:px-12 py-6 flex w-full items-center">
               <a class="text-3xl font-bold font-heading" href="#">
                 <!-- <img class="h-9" src="logo.png" alt="logo"> -->
-                Dariaus ir Evaldo žaislų parduotuvė
+                Toy Store
               </a>
               <!-- Nav Links -->
               <ul class="hidden md:flex px-4 mx-auto font-semibold font-heading space-x-12">
-                <li><a class="hover:text-gray-200" href="#">Home</a></li>
-                <li><a class="hover:text-gray-200" href="#">Catagory</a></li>
-                <li><a class="hover:text-gray-200" href="#">Collections</a></li>
-                <li><a class="hover:text-gray-200" href="#">Contact Us</a></li>
+                <li><a class="hover:text-yellow-500 text-red-500 text-4xl font-bold" href="#">Home</a></li>
+                <li><a class="hover:text-purple-500 text-blue-500 text-4xl font-bold" href="#">Category</a></li>
+                <li><a class="hover:text-red-500 text-orange-500 text-4xl font-bold" href="#">About us</a></li>
+                <li><a class="hover:text-blue-500 text-purple-500 text-4xl font-bold" href="#">Contact Us</a></li>
               </ul>
               <!-- Header Icons -->
               <div class="hidden xl:flex items-center space-x-5 items-center">
@@ -66,6 +67,7 @@
           
         </section>
       </div>
+      <img src="./img/zemiau.jpg">
 
 
     <div id="products" class="flex justify-center">
@@ -155,8 +157,8 @@
                         <th scope="col" class="px-6 py-3">
                             Qty
                         </th>
-                        <th scope="col" class="px-6 py-3">
-                            Price
+                        <th scope="col" class="px-6 py-3 min-w-24">
+                            Price €
                         </th>
                         <th scope="col" class="px-6 py-3">
                             Action
@@ -187,5 +189,23 @@
   </div>
 </div>
 <div class="hidden opacity-25 fixed inset-0 z-40 bg-black" id="modal-id-backdrop"></div>
+<div class="bg-green-200 heading text-center font-bold text-2xl pt-10 text-wh">All Products:</div>
 
+<!-- Product card --> 
+<section class="bg-green-200 py-8 antialiased dark:bg-gray-900 md:py-12">
+  <div class="mx-auto max-w-screen-xl px-4 2xl:px-0">
+    <div id="products1" class="mb-4 grid gap-4 sm:grid-cols-2 md:mb-8 lg:grid-cols-3 xl:grid-cols-4">
+  
+    </div>
+  </div>
+
+  
+</section>
+<p id="totalPrice"></p>
+
+
+
+
+
+</div>
 </html>
