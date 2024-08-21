@@ -1,0 +1,21 @@
+version: '3.8'
+services:
+  backend:
+    image: zaisluparduotuveback
+    build: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql
+  mysql:
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: ZaisluParduotuve
+    ports:
+      - "3307:3306"
+  web:
+    image: zaisluparduotuvefront
+    ports:
+    - "7777:80"
