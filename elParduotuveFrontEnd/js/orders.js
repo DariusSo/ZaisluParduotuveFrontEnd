@@ -45,7 +45,7 @@ function displayOrders(orders) {
             console.log(orderP.productId)
             var quantity = orderP.quantity;
             htmlOrderProducts.setAttribute("name", "orderProduct" + order.id);
-            htmlOrderProducts.className = "hidden w-full bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600";
+            htmlOrderProducts.className = "hidden w-full bg-gray-200 border-b hover:bg-gray-300";
             var productFromList = await fetchProductById(orderP.productId);
             console.log(productFromList);
             htmlOrderProducts.innerHTML = showOrderProducts(productFromList, quantity);

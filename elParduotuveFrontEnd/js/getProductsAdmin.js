@@ -26,11 +26,11 @@ function displayProducts(products) {
     productsTable.innerHTML = '';
     products.forEach(product => {
         var htmlProduct = document.createElement("tr");
-        htmlProduct.className = "bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600";
+        htmlProduct.className = "bg-white border-b hover:bg-gray-50";
         htmlProduct.innerHTML = showProducts(product);
         productsTable.append(htmlProduct);
         var htmlProductModify = document.createElement("tr");
-        htmlProductModify.className = "bg-red-100 border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 hidden";
+        htmlProductModify.className = "bg-red-100 border-b hover:bg-gray-50 hidden";
         htmlProductModify.innerHTML = showModify(product);
         htmlProductModify.id = "modify" + product.id;
         productsTable.append(htmlProductModify);
@@ -101,7 +101,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 function openForm(id){
     var block = document.getElementById("modify" + id);
-    block.className = "bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+    block.className = "bg-gray-200 border-b"
 }
 function closeForm(id){
     var block = document.getElementById("modify" + id);

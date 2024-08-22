@@ -9,4 +9,9 @@ document.addEventListener('DOMContentLoaded', function () {
             window.location.href = "./index.html";
         }
     }, 1000);
+    deleteCookie("cartItems");
   });
+
+  function deleteCookie(name) {
+    document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+  }

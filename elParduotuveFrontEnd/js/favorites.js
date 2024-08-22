@@ -1,29 +1,40 @@
-async function fetchProducts() {
-    try {
-        const response = await fetch('http://localhost:8080/products', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-            },
-        });
-    
-        const products = await response.json();
-        
-        if(!Object.keys(products).length){
-          console.log("no data found");
-      }else{
-          displayProducts(products);
-        }
-        
-    } catch (error) {
-      console.log(error);
+document.addEventListener('DOMContentLoaded', function () {
+    displayProducts();
+    showPing();
+
+  });
+
+  function showPing(){
+    var ping = document.getElementById("ping");
+    if(getCookie("cartItems")){
+      if(ping.classList.contains("hidden")){
+        ping.classList.remove("hidden")
+      }
     }
-}
-function displayProducts(products) {
+  }
+  function toggleModal(){
+    var modalID = "modal-id";
+    document.getElementById(modalID).classList.toggle("hidden");
+    document.getElementById(modalID + "-backdrop").classList.toggle("hidden");
+    document.getElementById(modalID).classList.toggle("flex");
+    document.getElementById(modalID + "-backdrop").classList.toggle("flex");
+  }
+  function toggleFavorites(){
+    var favoritesCookies = JSON.parse(getCookie("favorites"));
+    favoritesCookies.forEach(cookie => {
+      var heart = document.getElementById("favorites" + cookie.productId);
+      
+      heart.classList.remove("text-gray-500");
+      heart.classList.add("text-red-500");
+
+  })
+  }
+function displayProducts() {
+    var products = JSON.parse(getCookie("favorites"));
     var productsTable = document.getElementById("products1")
     productsTable.innerHTML = '';
-    products.forEach(product => {
+    products.forEach(async productIds => {
+        var product = await fetchProductById(productIds.productId);
         var htmlProduct = document.createElement("div");
         htmlProduct.innerHTML = showProductsNew(product);
         productsTable.append(htmlProduct);
@@ -33,7 +44,7 @@ function displayProducts(products) {
          };
     
     });
-    toggleFavorites();
+    
 }
 function showProducts(product){
     return '<div class="bg-gray-100 flex flex-col justify-center">' +
@@ -87,7 +98,7 @@ function showProductsNew(product){
           '<div class="tooltip-arrow" data-popper-arrow=""></div>' +
         '</div>' +
 
-        '<button id="favorites'+ product.id +'" onclick="addToFavorites('+ product.id +')" type="button" data-tooltip-target="tooltip-add-to-favorites" class="rounded-lg p-2 text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">' +
+        '<button id="favorites'+ product.id +'" onclick="addToFavorites('+ product.id +')" type="button" data-tooltip-target="tooltip-add-to-favorites" class="rounded-lg p-2 text-red-500 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">' +
           '<span class="sr-only"> Add to Favorites </span>' +
           '<svg class="h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">' +
             '<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6C6.5 1 1 8 5.8 13l6.2 7 6.2-7C23 8 17.5 1 12 6Z" />' +
@@ -194,3 +205,4 @@ function toggleFavorites(){
 
 })
 }
+  

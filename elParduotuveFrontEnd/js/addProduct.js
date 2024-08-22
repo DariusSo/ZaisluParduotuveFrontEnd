@@ -74,7 +74,7 @@ function readFile() {
     var form = new FormData();
     form.append("image", img)
     try {
-      const response = await fetch('https://api.imgbb.com/1/upload?expiration=600&key=f41c487b4fc4936b18728b0592baf331', {
+      const response = await fetch('https://api.imgbb.com/1/upload?key=f41c487b4fc4936b18728b0592baf331', {
           method: 'POST',
           
         body : form
